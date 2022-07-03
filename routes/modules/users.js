@@ -47,7 +47,7 @@ router.post('/register', (req, res) => {
 
   User.findOne({ where: { email } }).then(user => {
     if (user) {
-      console.log('User already exists')
+      req.flash('warning_msg', '此 Email 已經被使用')
       return res.render('register', {
         name,
         email,
@@ -73,6 +73,7 @@ router.post('/register', (req, res) => {
 
 router.get('/logout', (req, res) => {
   req.logout()
+  req.flash('success_msg', '你已經成功登出。')
   res.redirect('/users/login')
 })
 
